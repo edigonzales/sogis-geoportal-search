@@ -1,8 +1,9 @@
 body /*, html*/ {
 	margin: 0px;
 	padding: 0px;
-    background: #F7F7F7;
+    background: #fafafa; /* #f5f5f5 */
     font-family: Barlow, 'IBM Plex Sans', sans-serif;    
+    font-size: 16px;
     /*height:100%;*/    
 }
 
@@ -36,7 +37,23 @@ h1 {
 
 .searchBoxContainer {
 	width: 100%;
+	/*
     border-bottom: 0px solid #D9D9D9;
+    */
+}
+
+#tabsPanelContainer {
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.nav-tabs {
+	border: none !important;
+}
+
+.nav-tabs.col-blue > li > a::before {
+	border-bottom-color: red !important;
 }
 
 .tabContainer {
@@ -44,6 +61,13 @@ h1 {
     margin-right: auto;
 
 }
+
+
+.tab-content {
+/*	background-color: white;*/
+}
+
+
 
 .gwt-TabPanel {
     margin-left: auto;
@@ -84,7 +108,9 @@ h1 {
 	outline: none !important;;
 }
 
-
+.gwt-TabPanelBottom {
+    background-color: wheat;	
+}
 
 .gwt-SuggestBox {
     color: black;
@@ -121,6 +147,10 @@ h1 {
    border:  1px solid #C2C2C2 !important; 
    border-bottom-left-radius: 3px;
    border-bottom-right-radius: 3px;
+   /* collision with domino ui */
+   padding-left: 0px !important; 
+   margin-left: 1px !important;
+   margin-top: -1px !important;
    
 }
 
@@ -131,6 +161,7 @@ h1 {
 
 .gwt-SuggestBoxPopup .item { 
    padding: 2px !important;
+   font-size: 16px;   
 }
 
 .gwt-SuggestBoxPopup .item-selected { 

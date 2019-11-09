@@ -1,8 +1,15 @@
 package ch.so.agi.geoportal.search.client;
 
+import org.dominokit.domino.ui.Typography.Paragraph;
+import org.dominokit.domino.ui.style.Color;
+import org.dominokit.domino.ui.tabs.Tab;
+import org.dominokit.domino.ui.tabs.TabsPanel;
+import org.dominokit.domino.ui.themes.Theme;
 //import org.dominokit.domino.ui.cards.Card;
 //import org.dominokit.domino.ui.utils.TextNode;
-//import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.gwt.elemento.core.Elements;
+import static org.jboss.gwt.elemento.core.Elements.b;
+import static org.jboss.gwt.elemento.core.Elements.div;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -23,6 +30,7 @@ import ch.so.agi.geoportal.search.shared.SettingsResponse;
 import ch.so.agi.geoportal.search.shared.SettingsService;
 import ch.so.agi.geoportal.search.shared.SettingsServiceAsync;
 //import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLDivElement;
 
 public class AppEntryPoint implements EntryPoint {
     private MyMessages messages = GWT.create(MyMessages.class);
@@ -56,7 +64,7 @@ public class AppEntryPoint implements EntryPoint {
         Elements.body().add(controlsCard);
         */
         
-        TabPanel tabPanel = new TabPanel();
+        TabsPanel tabsPanel = TabsPanel.create();
 
         
         
@@ -84,11 +92,17 @@ public class AppEntryPoint implements EntryPoint {
             
             searchPanel.setStyleName("resultSearchPanel");
             RootPanel.get().getElement().getStyle().setProperty("backgroundColor", "white");
-            searchBoxContainer.getElement().getStyle().setProperty("backgroundColor", "#F7F7F7");
+            searchBoxContainer.getElement().getStyle().setProperty("backgroundColor", "#f5f5f5");
             searchBoxContainer.getElement().getStyle().setProperty("borderBottom", "1px solid #D9D9D9");
 
-            tabPanel.addStyleName("gwt-TabPanel-Result");
-
+//            tabsPanel.addStyleName("gwt-TabPanel-Result");
+            tabsPanel.style().setMarginLeft("0px", true);
+            tabsPanel.style().setPaddingLeft("100px", true);
+            tabsPanel.style().setPaddingRight("100px", true);
+//            tabsPanel.style().setMarginRight("auto", true);
+            tabsPanel.style().setWidth("100%", true);
+            tabsPanel.style().setMaxWidth("100%", true);
+            
         });
         
         suggestBox.addKeyDownHandler(h -> {
@@ -103,13 +117,51 @@ public class AppEntryPoint implements EntryPoint {
         RootPanel.get().add(searchBoxContainer);
 
         
+        // Domino UI
+        tabsPanel.setBackgroundColor(Color.GREY_LIGHTEN_5);
+        tabsPanel.style().setMarginLeft("auto", true);
+        tabsPanel.style().setMarginRight("auto", true);
+        tabsPanel.style().setWidth("500px", true);
+        tabsPanel.style().setMaxWidth("100%", true);
+       
+        
+        
+        Tab tabAll = Tab.create("Alles");
+        tabAll.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+        Tab tabPlaces = Tab.create("Orte");
+        tabPlaces.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+        Tab tabMaps = Tab.create("Karten");
+        tabMaps.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+        Tab tabServices = Tab.create("Dienste");
+        tabServices.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+        Tab tabData = Tab.create("Data");
+        tabData.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+        Tab tabPlr = Tab.create("ÖREB");
+        tabPlr.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+        
+        tabsPanel.appendChild(tabAll);
+        tabsPanel.appendChild(tabPlaces);
+        tabsPanel.appendChild(tabMaps);
+        tabsPanel.appendChild(tabServices);
+        tabsPanel.appendChild(tabData);
+        tabsPanel.appendChild(tabPlr);
+        
+        HTMLDivElement tabsPanelContainer = div().asElement();
+        //tabsPanelContainer.setAttribute("id", "tabsPanelContainer");
+        tabsPanelContainer.appendChild(tabsPanel.asElement());
+        
+        Elements.body().add(tabsPanelContainer);
+        
+
+        /*
+        // GWT pure
         FlowPanel tabContainer = new FlowPanel();
         tabContainer.setStyleName("tabContainer");
         
         // searchContext
 
         //create contents for tabs of tabpanel
-        Label label0 = new Label("This is contents of TAB 0");
+        Label label0 = new Label("    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
         label0.setHeight("200");
         Label label1 = new Label("This is contents of TAB 1");
         label1.setHeight("200");
@@ -146,8 +198,8 @@ public class AppEntryPoint implements EntryPoint {
 
         // Add the widgets to the root panel.
         tabContainer.add(tabPanel);
-        RootPanel.get().add(tabContainer);
-        
+//        RootPanel.get().add(tabContainer);
+        */
         
     }
 

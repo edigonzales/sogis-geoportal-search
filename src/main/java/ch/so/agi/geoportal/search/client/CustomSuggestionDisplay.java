@@ -16,5 +16,7 @@ public class CustomSuggestionDisplay extends DefaultSuggestionDisplay {
     {
         super.showSuggestions( suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback );
         getPopupPanel().setWidth( ( suggestBox.getElement().getAbsoluteRight() - suggestBox.getAbsoluteLeft() ) - 2*border + Unit.PX.getType() );
+        
+        
     }
 }
