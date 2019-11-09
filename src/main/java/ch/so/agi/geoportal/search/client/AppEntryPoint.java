@@ -91,8 +91,8 @@ public class AppEntryPoint implements EntryPoint {
             GWT.log("addSelectionHandler: " + h.getSelectedItem().getReplacementString()); 
             
             searchPanel.setStyleName("resultSearchPanel");
-            RootPanel.get().getElement().getStyle().setProperty("backgroundColor", "white");
-            searchBoxContainer.getElement().getStyle().setProperty("backgroundColor", "#f5f5f5");
+            //RootPanel.get().getElement().getStyle().setProperty("backgroundColor", "white");
+            searchBoxContainer.getElement().getStyle().setProperty("backgroundColor", "#fafafa");
             searchBoxContainer.getElement().getStyle().setProperty("borderBottom", "1px solid #D9D9D9");
 
 //            tabsPanel.addStyleName("gwt-TabPanel-Result");
@@ -123,9 +123,7 @@ public class AppEntryPoint implements EntryPoint {
         tabsPanel.style().setMarginRight("auto", true);
         tabsPanel.style().setWidth("500px", true);
         tabsPanel.style().setMaxWidth("100%", true);
-       
-        
-        
+
         Tab tabAll = Tab.create("Alles");
         tabAll.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
         Tab tabPlaces = Tab.create("Orte");
@@ -134,7 +132,7 @@ public class AppEntryPoint implements EntryPoint {
         tabMaps.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
         Tab tabServices = Tab.create("Dienste");
         tabServices.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-        Tab tabData = Tab.create("Data");
+        Tab tabData = Tab.create("Daten");
         tabData.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
         Tab tabPlr = Tab.create("ÖREB");
         tabPlr.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
