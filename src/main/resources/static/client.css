@@ -67,51 +67,6 @@ h1 {
 /*	background-color: white;*/
 }
 
-
-
-.gwt-TabPanel {
-    margin-left: auto;
-    margin-right: auto;
-
-    max-width: 100%;  
-    width: 500px;
-}
-
-.gwt-TabPanel-Result {
-    padding-left: 100px;
-    max-width: 100%;  
-    width: 100%;
-    
-}
-
-.gwt-TabBarItem {
-	margin-right: 20px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	height: 20px;
-	background-color: none;
-	vertical-align: middle;
-	/*width: 50px;*/
-	
-}
-
-.gwt-TabBarItem-selected {
-	font-weight: 400;
-    height: 19px;/*18px;*/
-	/*border-bottom: 2px solid red;*/
-	border-bottom: 1px solid black;
-    outline: none;
-	
-}
-
-.gwt-TabBarItem-selected:focus  {
-	outline: none !important;;
-}
-
-.gwt-TabPanelBottom {
-    background-color: wheat;	
-}
-
 .gwt-SuggestBox {
     color: black;
     font-family: Barlow, 'IBM Plex Sans', sans-serif; 
@@ -160,7 +115,7 @@ h1 {
 }
 
 .gwt-SuggestBoxPopup .item { 
-   padding: 2px !important;
+   padding: 4px !important;
    font-size: 16px;   
 }
 
@@ -213,6 +168,7 @@ h1 {
 
 .gwt-SuggestBoxPopup .suggestPopupMiddleCenterInner { 
    border: none !important;
+   padding: 3px !important;
 }
 
 /*
