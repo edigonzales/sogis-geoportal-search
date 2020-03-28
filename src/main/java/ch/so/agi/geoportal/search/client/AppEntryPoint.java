@@ -1,6 +1,18 @@
 package ch.so.agi.geoportal.search.client;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import org.dominokit.domino.ui.Typography.Paragraph;
+import org.dominokit.domino.ui.cards.Card;
+import org.dominokit.domino.ui.forms.LocalSuggestBoxStore;
+import org.dominokit.domino.ui.forms.SuggestBoxStore;
+import org.dominokit.domino.ui.forms.SuggestItem;
+//import org.dominokit.domino.ui.forms.SuggestBox;
+import org.dominokit.domino.ui.grid.Column;
+import org.dominokit.domino.ui.grid.Row;
+import org.dominokit.domino.ui.grid.Row_12;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.tabs.Tab;
 import org.dominokit.domino.ui.tabs.TabsPanel;
@@ -9,7 +21,9 @@ import org.dominokit.domino.ui.themes.Theme;
 //import org.dominokit.domino.ui.utils.TextNode;
 //import org.jboss.gwt.elemento.core.Elements;
 //import static org.jboss.gwt.elemento.core.Elements.b;
-//import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.div;
+import org.dominokit.domino.ui.utils.TextNode;
+import org.jboss.elemento.Elements;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -29,8 +43,16 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import ch.so.agi.geoportal.search.shared.SettingsResponse;
 import ch.so.agi.geoportal.search.shared.SettingsService;
 import ch.so.agi.geoportal.search.shared.SettingsServiceAsync;
+import elemental2.core.Global;
+import elemental2.core.JsArray;
+import elemental2.dom.DomGlobal;
 //import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Response;
+
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
 public class AppEntryPoint implements EntryPoint {
     private MyMessages messages = GWT.create(MyMessages.class);
@@ -56,15 +78,75 @@ public class AppEntryPoint implements EntryPoint {
         });
     }
 
-    private void init() {                        
-        /*
-        HTMLElement controlsCard = Card.create().setId("controls").setWidth("500px")
-                .appendChild(TextNode.of("Hallo Stefan.")).asElement();
+    private void init() {        
+    	
+//        SuggestBoxStore dynamicStore =
+//                new SuggestBoxStore() {
+//
+//					@Override
+//					public void filter(String value, SuggestionsHandler suggestionsHandler) {
+//						GWT.log("filter");
+//						GWT.log(value);
+//		                DomGlobal.fetch("https://restcountries.eu/rest/v2/all")
+//                        .then(Response::text)
+//                        .then(json -> {
+//                            List<SuggestItem<String>> suggestItems = new ArrayList<>();
+//                            JsArray<JsPropertyMap<String>> randomNames = Js.cast(Global.JSON.parse(json));
+//                            for (int i = 0; i < randomNames.length; i++) {
+//                                JsPropertyMap<String> nameProperties = randomNames.getAt(i);
+//                                if (nameProperties.get("name").toLowerCase().contains(value.toLowerCase())) {
+//                                    SuggestItem suggestItem = SuggestItem.create(nameProperties.get("name"));
+//                                    suggestItems.add(suggestItem);
+//                                }
+//                            }
+//                            suggestionsHandler.onSuggestionsReady(suggestItems);
+//                            return null;
+//                        });
+//						
+//					}
+//
+//					@Override
+//					public void find(Object searchValue, Consumer handler) {
+//						GWT.log("find");
+//						GWT.log(searchValue.toString());
+//						GWT.log("handler: " + handler.toString());
+//		                DomGlobal.fetch("https://restcountries.eu/rest/v2/all")
+//                        .then(Response::text)
+//                        .then(json -> {
+//                            JsArray<JsPropertyMap<String>> randomNames = Js.cast(Global.JSON.parse(json));
+////                            for (int i = 0; i < randomNames.length; i++) {
+////                                JsPropertyMap<String> nameProperties = randomNames.getAt(i);
+////                                if (nameProperties.get("name").equals(searchValue)) {
+////                                    SuggestItem suggestItem = SuggestItem.create(nameProperties.get("name"));
+////                                    handler.accept(suggestItem);
+////                                    return null;
+////                                }
+////                            }
+//                            return null;
+//                        });
+//						
+//					}
+//				};
+//
+//    	
+//    	
+//    	
+//        
+//        HTMLElement controlsCard = Card.create().setId("controls").setWidth("500px")
+//                .appendChild(TextNode.of("Hallo Stefan.")).element();
+//                
+//        SuggestBox suggestBox = SuggestBox.create("Country", dynamicStore);
+//        
+//        Row_12 row = Row.create()
+//        .appendChild(
+//            Column.span12().appendChild(suggestBox));
+//        
+//        Elements.body().add(controlsCard);
+//        Elements.body().add(row.element());
+
         
-        Elements.body().add(controlsCard);
-        */
         
-/*    	
+	
         TabsPanel tabsPanel = TabsPanel.create();
 
         
@@ -97,12 +179,12 @@ public class AppEntryPoint implements EntryPoint {
             searchBoxContainer.getElement().getStyle().setProperty("borderBottom", "1px solid #D9D9D9");
 
 //            tabsPanel.addStyleName("gwt-TabPanel-Result");
-            tabsPanel.style().setMarginLeft("0px", true);
-            tabsPanel.style().setPaddingLeft("100px", true);
-            tabsPanel.style().setPaddingRight("100px", true);
+            //tabsPanel.style().setMarginLeft("0px", true);
+            //tabsPanel.style().setPaddingLeft("100px", true);
+            //tabsPanel.style().setPaddingRight("100px", true);
 //            tabsPanel.style().setMarginRight("auto", true);
-            tabsPanel.style().setWidth("100%", true);
-            tabsPanel.style().setMaxWidth("100%", true);
+            //tabsPanel.style().setWidth("100%", true);
+            //tabsPanel.style().setMaxWidth("100%", true);
             
         });
         
@@ -145,12 +227,12 @@ public class AppEntryPoint implements EntryPoint {
 //        tabsPanel.appendChild(tabData);
 //        tabsPanel.appendChild(tabPlr);
 //        
-//        HTMLDivElement tabsPanelContainer = div().asElement();
+        HTMLDivElement tabsPanelContainer = div().asElement();
         //tabsPanelContainer.setAttribute("id", "tabsPanelContainer");
         //tabsPanelContainer.appendChild(tabsPanel.asElement());
         
 //        Elements.body().add(tabsPanelContainer);
-*/        
+       
 
         /*
         // GWT pure
