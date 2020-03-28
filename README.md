@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/edigonzales/gwt-skeleton-spring-boot.svg?branch=master)](https://travis-ci.org/edigonzales/gwt-skeleton-spring-boot)
+[![Build Status](https://travis-ci.org/edigonzales/sogis-geoportal-search.svg?branch=master)](https://travis-ci.org/edigonzales/sogis-geoportal-search)
 
-# gwt skeleton
+# sogis-geoportal-search
 
 ## Development
 

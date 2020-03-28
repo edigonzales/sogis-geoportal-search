@@ -7,9 +7,9 @@ import org.dominokit.domino.ui.tabs.TabsPanel;
 import org.dominokit.domino.ui.themes.Theme;
 //import org.dominokit.domino.ui.cards.Card;
 //import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.gwt.elemento.core.Elements;
-import static org.jboss.gwt.elemento.core.Elements.b;
-import static org.jboss.gwt.elemento.core.Elements.div;
+//import org.jboss.gwt.elemento.core.Elements;
+//import static org.jboss.gwt.elemento.core.Elements.b;
+//import static org.jboss.gwt.elemento.core.Elements.div;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -64,6 +64,7 @@ public class AppEntryPoint implements EntryPoint {
         Elements.body().add(controlsCard);
         */
         
+/*    	
         TabsPanel tabsPanel = TabsPanel.create();
 
         
@@ -124,32 +125,32 @@ public class AppEntryPoint implements EntryPoint {
         tabsPanel.style().setWidth("500px", true);
         tabsPanel.style().setMaxWidth("100%", true);
 
-        Tab tabAll = Tab.create("Alles");
-        tabAll.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-        Tab tabPlaces = Tab.create("Orte");
-        tabPlaces.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-        Tab tabMaps = Tab.create("Karten");
-        tabMaps.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-        Tab tabServices = Tab.create("Dienste");
-        tabServices.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-        Tab tabData = Tab.create("Daten");
-        tabData.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-        Tab tabPlr = Tab.create("ÖREB");
-        tabPlr.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-        
-        tabsPanel.appendChild(tabAll);
-        tabsPanel.appendChild(tabPlaces);
-        tabsPanel.appendChild(tabMaps);
-        tabsPanel.appendChild(tabServices);
-        tabsPanel.appendChild(tabData);
-        tabsPanel.appendChild(tabPlr);
-        
-        HTMLDivElement tabsPanelContainer = div().asElement();
+//        Tab tabAll = Tab.create("Alles");
+//        tabAll.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+//        Tab tabPlaces = Tab.create("Orte");
+//        tabPlaces.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+//        Tab tabMaps = Tab.create("Karten");
+//        tabMaps.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+//        Tab tabServices = Tab.create("Dienste");
+//        tabServices.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+//        Tab tabData = Tab.create("Daten");
+//        tabData.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+//        Tab tabPlr = Tab.create("ÖREB");
+//        tabPlr.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
+//        
+//        tabsPanel.appendChild(tabAll);
+//        tabsPanel.appendChild(tabPlaces);
+//        tabsPanel.appendChild(tabMaps);
+//        tabsPanel.appendChild(tabServices);
+//        tabsPanel.appendChild(tabData);
+//        tabsPanel.appendChild(tabPlr);
+//        
+//        HTMLDivElement tabsPanelContainer = div().asElement();
         //tabsPanelContainer.setAttribute("id", "tabsPanelContainer");
-        tabsPanelContainer.appendChild(tabsPanel.asElement());
+        //tabsPanelContainer.appendChild(tabsPanel.asElement());
         
-        Elements.body().add(tabsPanelContainer);
-        
+//        Elements.body().add(tabsPanelContainer);
+*/        
 
         /*
         // GWT pure
