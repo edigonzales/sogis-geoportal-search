@@ -14,8 +14,9 @@
     <inherits name='com.google.gwt.user.theme.clean.Clean'/> 
      -->
     
+    <!--
     <inherits name="org.dominokit.domino.ui.DominoUI"/>
-     
+    -->
     <source path="client" />
     <source path="shared" />
     <entry-point class='ch.so.agi.geoportal.search.client.AppEntryPoint' />

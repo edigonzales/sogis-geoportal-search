@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import org.dominokit.domino.ui.Typography.Paragraph;
-import org.dominokit.domino.ui.cards.Card;
-import org.dominokit.domino.ui.forms.LocalSuggestBoxStore;
-import org.dominokit.domino.ui.forms.SuggestBoxStore;
-import org.dominokit.domino.ui.forms.SuggestItem;
-//import org.dominokit.domino.ui.forms.SuggestBox;
-import org.dominokit.domino.ui.grid.Column;
-import org.dominokit.domino.ui.grid.Row;
-import org.dominokit.domino.ui.grid.Row_12;
-import org.dominokit.domino.ui.style.Color;
-import org.dominokit.domino.ui.tabs.Tab;
-import org.dominokit.domino.ui.tabs.TabsPanel;
-import org.dominokit.domino.ui.themes.Theme;
+//import org.dominokit.domino.ui.Typography.Paragraph;
+//import org.dominokit.domino.ui.cards.Card;
+//import org.dominokit.domino.ui.forms.LocalSuggestBoxStore;
+//import org.dominokit.domino.ui.forms.SuggestBoxStore;
+//import org.dominokit.domino.ui.forms.SuggestItem;
+////import org.dominokit.domino.ui.forms.SuggestBox;
+//import org.dominokit.domino.ui.grid.Column;
+//import org.dominokit.domino.ui.grid.Row;
+//import org.dominokit.domino.ui.grid.Row_12;
+//import org.dominokit.domino.ui.style.Color;
+//import org.dominokit.domino.ui.tabs.Tab;
+//import org.dominokit.domino.ui.tabs.TabsPanel;
+//import org.dominokit.domino.ui.themes.Theme;
 //import org.dominokit.domino.ui.cards.Card;
 //import org.dominokit.domino.ui.utils.TextNode;
 //import org.jboss.gwt.elemento.core.Elements;
 //import static org.jboss.gwt.elemento.core.Elements.b;
-import static org.jboss.gwt.elemento.core.Elements.div;
-import org.dominokit.domino.ui.utils.TextNode;
-import org.jboss.elemento.Elements;
+//import static org.jboss.gwt.elemento.core.Elements.div;
+//import org.dominokit.domino.ui.utils.TextNode;
+//import org.jboss.elemento.Elements;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -43,16 +43,16 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import ch.so.agi.geoportal.search.shared.SettingsResponse;
 import ch.so.agi.geoportal.search.shared.SettingsService;
 import ch.so.agi.geoportal.search.shared.SettingsServiceAsync;
-import elemental2.core.Global;
-import elemental2.core.JsArray;
-import elemental2.dom.DomGlobal;
+//import elemental2.core.Global;
+//import elemental2.core.JsArray;
+//import elemental2.dom.DomGlobal;
 //import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Response;
+//import elemental2.dom.HTMLDivElement;
+//import elemental2.dom.HTMLElement;
+//import elemental2.dom.Response;
 
-import jsinterop.base.Js;
-import jsinterop.base.JsPropertyMap;
+//import jsinterop.base.Js;
+//import jsinterop.base.JsPropertyMap;
 
 public class AppEntryPoint implements EntryPoint {
     private MyMessages messages = GWT.create(MyMessages.class);
@@ -147,7 +147,7 @@ public class AppEntryPoint implements EntryPoint {
         
         
 	
-        TabsPanel tabsPanel = TabsPanel.create();
+//        TabsPanel tabsPanel = TabsPanel.create();
 
         
         
@@ -165,6 +165,7 @@ public class AppEntryPoint implements EntryPoint {
         
         SuggestBox suggestBox = new SuggestBox(oracle, new TextBox(), new CustomSuggestionDisplay());
         suggestBox.setWidth("100%");
+        suggestBox.setAutoSelectEnabled(false);
         
         suggestBox.addValueChangeHandler(h -> {
             GWT.log("addValueChangeHandler: " + h.getValue()); 
@@ -192,6 +193,11 @@ public class AppEntryPoint implements EntryPoint {
            //GWT.log(((SuggestBox) h.getSource()).getValue()); 
             if (h.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
                 GWT.log("ENTER");
+                
+                
+                GWT.log(suggestBox.getText());
+                
+                
             }
         });
         searchPanel.add(suggestBox);
@@ -201,11 +207,11 @@ public class AppEntryPoint implements EntryPoint {
 
         
         // Domino UI
-        tabsPanel.setBackgroundColor(Color.GREY_LIGHTEN_5);
-        tabsPanel.style().setMarginLeft("auto", true);
-        tabsPanel.style().setMarginRight("auto", true);
-        tabsPanel.style().setWidth("500px", true);
-        tabsPanel.style().setMaxWidth("100%", true);
+//        tabsPanel.setBackgroundColor(Color.GREY_LIGHTEN_5);
+//        tabsPanel.style().setMarginLeft("auto", true);
+//        tabsPanel.style().setMarginRight("auto", true);
+//        tabsPanel.style().setWidth("500px", true);
+//        tabsPanel.style().setMaxWidth("100%", true);
 
 //        Tab tabAll = Tab.create("Alles");
 //        tabAll.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
@@ -227,7 +233,7 @@ public class AppEntryPoint implements EntryPoint {
 //        tabsPanel.appendChild(tabData);
 //        tabsPanel.appendChild(tabPlr);
 //        
-        HTMLDivElement tabsPanelContainer = div().asElement();
+        //HTMLDivElement tabsPanelContainer = div().asElement();
         //tabsPanelContainer.setAttribute("id", "tabsPanelContainer");
         //tabsPanelContainer.appendChild(tabsPanel.asElement());
         
