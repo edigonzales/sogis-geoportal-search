@@ -27,11 +27,15 @@ import java.util.function.Consumer;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -127,22 +131,6 @@ public class AppEntryPoint implements EntryPoint {
 //						
 //					}
 //				};
-//
-//    	
-//    	
-//    	
-//        
-//        HTMLElement controlsCard = Card.create().setId("controls").setWidth("500px")
-//                .appendChild(TextNode.of("Hallo Stefan.")).element();
-//                
-//        SuggestBox suggestBox = SuggestBox.create("Country", dynamicStore);
-//        
-//        Row_12 row = Row.create()
-//        .appendChild(
-//            Column.span12().appendChild(suggestBox));
-//        
-//        Elements.body().add(controlsCard);
-//        Elements.body().add(row.element());
 
         
         
@@ -150,13 +138,13 @@ public class AppEntryPoint implements EntryPoint {
 //        TabsPanel tabsPanel = TabsPanel.create();
 
         
-        
-        FlowPanel searchPanel = new FlowPanel();
-        searchPanel.setStyleName("searchPanel");
-        
         FlowPanel searchBoxContainer = new FlowPanel();
         searchBoxContainer.setStyleName("searchBoxContainer");
-        
+
+        HorizontalPanel searchPanel = new HorizontalPanel();
+        searchPanel.setStyleName("searchPanel");
+        searchPanel.setSpacing(5);
+
         MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();  
         oracle.add("Cat");
         oracle.add("Dog");
@@ -171,23 +159,23 @@ public class AppEntryPoint implements EntryPoint {
             GWT.log("addValueChangeHandler: " + h.getValue()); 
         });
         
-        suggestBox.addSelectionHandler(h -> {
-            GWT.log("addSelectionHandler: " + h.getSelectedItem().getReplacementString()); 
-            
-            searchPanel.setStyleName("resultSearchPanel");
-            //RootPanel.get().getElement().getStyle().setProperty("backgroundColor", "white");
-            searchBoxContainer.getElement().getStyle().setProperty("backgroundColor", "#fafafa");
-            searchBoxContainer.getElement().getStyle().setProperty("borderBottom", "1px solid #D9D9D9");
-
-//            tabsPanel.addStyleName("gwt-TabPanel-Result");
-            //tabsPanel.style().setMarginLeft("0px", true);
-            //tabsPanel.style().setPaddingLeft("100px", true);
-            //tabsPanel.style().setPaddingRight("100px", true);
-//            tabsPanel.style().setMarginRight("auto", true);
-            //tabsPanel.style().setWidth("100%", true);
-            //tabsPanel.style().setMaxWidth("100%", true);
-            
-        });
+//        suggestBox.addSelectionHandler(h -> {
+//            GWT.log("addSelectionHandler: " + h.getSelectedItem().getReplacementString()); 
+//            
+//            searchPanel.setStyleName("resultSearchPanel");
+//            //RootPanel.get().getElement().getStyle().setProperty("backgroundColor", "white");
+//            //searchBoxContainer.getElement().getStyle().setProperty("backgroundColor", "#fafafa");
+//            //searchBoxContainer.getElement().getStyle().setProperty("borderBottom", "1px solid #D9D9D9");
+//
+////            tabsPanel.addStyleName("gwt-TabPanel-Result");
+//            //tabsPanel.style().setMarginLeft("0px", true);
+//            //tabsPanel.style().setPaddingLeft("100px", true);
+//            //tabsPanel.style().setPaddingRight("100px", true);
+////            tabsPanel.style().setMarginRight("auto", true);
+//            //tabsPanel.style().setWidth("100%", true);
+//            //tabsPanel.style().setMaxWidth("100%", true);
+//            
+//        });
         
         suggestBox.addKeyDownHandler(h -> {
            //GWT.log(((SuggestBox) h.getSource()).getValue()); 
@@ -202,6 +190,15 @@ public class AppEntryPoint implements EntryPoint {
         });
         searchPanel.add(suggestBox);
         searchBoxContainer.add(searchPanel);
+        
+        Button searchButton = new Button("Suche", new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				GWT.log("Button clicked.");
+			}
+        });
+        searchPanel.add(searchButton);
+        
         
         RootPanel.get().add(searchBoxContainer);
 
