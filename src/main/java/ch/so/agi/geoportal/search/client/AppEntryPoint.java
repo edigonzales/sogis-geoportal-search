@@ -209,7 +209,6 @@ public class AppEntryPoint implements EntryPoint {
         DropDownMenu suggestionsMenu = suggestBox.getSuggestionsMenu();
         suggestionsMenu.setPosition(new DropDownPositionDown());
         
-        
         suggestionsMenu.addEventListener("keydown", evt -> {
 
             KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
