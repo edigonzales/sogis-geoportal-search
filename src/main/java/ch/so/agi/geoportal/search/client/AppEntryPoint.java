@@ -5,10 +5,12 @@ import static org.jboss.elemento.Elements.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.dominokit.domino.ui.dropdown.DropDownMenu;
 import org.dominokit.domino.ui.forms.SuggestBoxStore;
+import org.dominokit.domino.ui.forms.LocalSuggestBoxStore;
 import org.dominokit.domino.ui.forms.SuggestBox;
 import org.dominokit.domino.ui.forms.SuggestItem;
 import org.dominokit.domino.ui.forms.SuggestBox.DropDownPositionDown;
@@ -135,6 +137,9 @@ public class AppEntryPoint implements EntryPoint {
         theme.apply();
 
         SuggestBoxStore dynamicStore = new SuggestBoxStore() {
+            private MissingSuggestProvider<String> missingValueProvider;
+            private MissingEntryProvider<String> missingEntryProvider;
+
             @Override
             public void filter(String value, SuggestionsHandler suggestionsHandler) {
                 if (value.trim().length() == 0) {
@@ -190,7 +195,7 @@ public class AppEntryPoint implements EntryPoint {
                     return null;
                 });
             }
-
+            
             @Override
             public void find(Object searchValue, Consumer handler) {
                 if (searchValue == null) {
@@ -202,8 +207,41 @@ public class AppEntryPoint implements EntryPoint {
                 handler.accept(suggestItem);
                 console.log(suggestBox.getInputElement().element().innerHTML);
             }
-        };
 
+            public SuggestBoxStore<String> setMissingValueProvider(MissingSuggestProvider<String> missingValueProvider) {
+                this.missingValueProvider = missingValueProvider;
+                return this;
+            }
+
+            public SuggestBoxStore<String> setMissingEntryProvider(MissingEntryProvider<String> missingEntryProvider) {
+                this.missingEntryProvider = missingEntryProvider;
+                return this;
+            }
+            
+//            class Foo implements SuggestBoxStore.MissingEntryProvider<String> {
+//                @Override
+//                public Optional<SuggestItem<String>> getMessingSuggestion(String inputValue) {
+//                    if (inputValue.isEmpty()) {
+//                        return Optional.empty();
+//                    }
+//                    return Optional.of(SuggestItem.create(inputValue));               
+//                }       
+//            }
+//            
+//            class Bar implements SuggestBoxStore.MissingSuggestProvider<String> {
+//                @Override
+//                public Optional<SuggestItem<String>> getMessingSuggestion(String missingValue) {
+//                        if (missingValue.isEmpty()) {
+//                            return Optional.empty();
+//                        }
+//                        return Optional.of(SuggestItem.create(missingValue));                
+//                        
+//                }
+//            } 
+            
+        };
+        
+        
         suggestBox = SuggestBox.create("Suche: Orte, Karten, Daten, ...", dynamicStore);
         suggestBox.setIcon(Icons.ALL.search());
         suggestBox.setAutoSelect(false);
@@ -211,6 +249,8 @@ public class AppEntryPoint implements EntryPoint {
         suggestBox.getInputElement().setAttribute("spellcheck", "false");
         DropDownMenu suggestionsMenu = suggestBox.getSuggestionsMenu();
         suggestionsMenu.setPosition(new DropDownPositionDown());
+        
+
         
 //        suggestionsMenu.addEventListener("keydown", evt -> {
 //            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
@@ -264,14 +304,14 @@ public class AppEntryPoint implements EntryPoint {
             }
         });
         
-        suggestBox.addChangeHandler(new ChangeHandler() {
-            @Override
-            public void onValueChanged(Object value) {
-                HTMLInputElement el =(HTMLInputElement) suggestBox.getInputElement().element();
-                suggestBox.getSuggestionsMenu().close();
-                console.log("onValueChanged: " + el.value);
-            }
-        });
+//        suggestBox.addChangeHandler(new ChangeHandler() {
+//            @Override
+//            public void onValueChanged(Object value) {
+//                HTMLInputElement el =(HTMLInputElement) suggestBox.getInputElement().element();
+//                suggestBox.getSuggestionsMenu().close();
+//                console.log("onValueChanged: " + el.value);
+//            }
+//        });
         
 
         
