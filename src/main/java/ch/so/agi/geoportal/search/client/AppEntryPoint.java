@@ -21,6 +21,7 @@ import org.dominokit.domino.ui.tabs.TabsPanel;
 import org.dominokit.domino.ui.themes.Theme;
 import org.dominokit.domino.ui.utils.DelayedTextInput;
 import org.dominokit.domino.ui.utils.DelayedTextInput.DelayedAction;
+import org.dominokit.domino.ui.utils.DominoElement;
 import org.dominokit.domino.ui.utils.HasChangeHandlers.ChangeHandler;
 import org.dominokit.domino.ui.utils.HasSelectionHandler.SelectionHandler;
 import org.jboss.elemento.EventType;
@@ -86,6 +87,7 @@ import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 import elemental2.dom.Headers;
 import elemental2.dom.KeyboardEvent;
 import elemental2.dom.RequestInit;
@@ -204,81 +206,106 @@ public class AppEntryPoint implements EntryPoint {
 
         suggestBox = SuggestBox.create("Suche: Orte, Karten, Daten, ...", dynamicStore);
         suggestBox.setIcon(Icons.ALL.search());
+        suggestBox.setAutoSelect(false);
         suggestBox.getInputElement().setAttribute("autocomplete", "off");
         suggestBox.getInputElement().setAttribute("spellcheck", "false");
         DropDownMenu suggestionsMenu = suggestBox.getSuggestionsMenu();
         suggestionsMenu.setPosition(new DropDownPositionDown());
         
-        suggestionsMenu.addEventListener("keydown", evt -> {
-
-            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-            String key = keyboardEvent.key.toLowerCase();
+//        suggestionsMenu.addEventListener("keydown", evt -> {
+//            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+//            String key = keyboardEvent.key.toLowerCase();
 //            console.log("suggestionsMenu" + key);
-        });
+//        });
 
         // Funktioniert nicht wenn Suggestionspanel offen ist.
-        suggestBox.addEventListener("keydown", evt -> {
-
-            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-            String key = keyboardEvent.key.toLowerCase();
+//        suggestBox.addEventListener("keydown", evt -> {
+//
+//            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+//            String key = keyboardEvent.key.toLowerCase();
 //            console.log(key);
-        });
+//            
+//            suggestionsMenu.blur();
+//            suggestBox.focus();
+//            
+//            if (key.equalsIgnoreCase("enter")) {
+//                console.log("fubar");
+//                suggestionsMenu.close();
+//            }
+//            
+//        });
         
-        suggestBox.setOnEnterAction(new DelayedAction() {
-
-            @Override
-            public void doAction() {
-
+        
+//        suggestBox.setOnEnterAction(new DelayedAction() {
+//            @Override
+//            public void doAction() {
 //                console.log("enter pressed.");
+//                suggestionsMenu.close();
+//            }
+//        });
+//        
+//        suggestBox.removeEventListener("enter", new EventListener() {
+//
+//            @Override
+//            public void handleEvent(Event evt) {
+//                // TODO Auto-generated method stub
+//                
+//            }
+//            
+//        });
+        
+
+        suggestBox.addSelectionHandler(new SelectionHandler() {
+            @Override
+            public void onSelection(Object value) {
+                SuggestItem<SearchResult> item = (SuggestItem<SearchResult>) value;
+                SearchResult result = (SearchResult) item.getValue();
+                console.log("onSelection: " + result.getDisplay());
             }
-            
         });
         
         suggestBox.addChangeHandler(new ChangeHandler() {
             @Override
             public void onValueChanged(Object value) {
-//                console.log("onValueChange");
-                
-                
+                HTMLInputElement el =(HTMLInputElement) suggestBox.getInputElement().element();
+                suggestBox.getSuggestionsMenu().close();
+                console.log("onValueChanged: " + el.value);
             }
-            
         });
         
-        suggestBox.addSelectionHandler(new SelectionHandler() {
-            @Override
-            public void onSelection(Object value) {
-                console.log("onSelection");
-                
-                
-                console.log(suggestionsMenu.getTextContent());
-                
-//                loader.stop();
-//                resetGui();
 
-                SuggestItem<SearchResult> item = (SuggestItem<SearchResult>) value;
-                SearchResult result = (SearchResult) item.getValue();
-                console.log("****" + result.getDisplay());
-                
-//                String[] coords = result.getBbox().substring(4,result.getBbox().length()-1).split(",");
-//                String[] coordLL = coords[0].split(" ");
-//                String[] coordUR = coords[1].split(" ");
-//                Extent extent = new Extent(Double.valueOf(coordLL[0]).doubleValue(), Double.valueOf(coordLL[1]).doubleValue(), 
-//                Double.valueOf(coordUR[0]).doubleValue(), Double.valueOf(coordUR[1]).doubleValue());
+        
+//        suggestBox.addSelectionHandler(new SelectionHandler() {
+//            @Override
+//            public void onSelection(Object value) {
+//
+////                loader.stop();
+////                resetGui();
+//
+//                SuggestItem<SearchResult> item = (SuggestItem<SearchResult>) value;
+//                SearchResult result = (SearchResult) item.getValue();
+//                console.log("onSelection: " + result.getDisplay());
 //                
-//                double easting = Double.valueOf(result.getEasting()).doubleValue();
-//                double northing = Double.valueOf(result.getNorthing()).doubleValue();
+////                String[] coords = result.getBbox().substring(4,result.getBbox().length()-1).split(",");
+////                String[] coordLL = coords[0].split(" ");
+////                String[] coordUR = coords[1].split(" ");
+////                Extent extent = new Extent(Double.valueOf(coordLL[0]).doubleValue(), Double.valueOf(coordLL[1]).doubleValue(), 
+////                Double.valueOf(coordUR[0]).doubleValue(), Double.valueOf(coordUR[1]).doubleValue());
+////                
+////                double easting = Double.valueOf(result.getEasting()).doubleValue();
+////                double northing = Double.valueOf(result.getNorthing()).doubleValue();
+////                
+////                Coordinate coordinate = new Coordinate(easting, northing);
+////                sendCoordinateToServer(coordinate.toStringXY(3), null);
 //                
-//                Coordinate coordinate = new Coordinate(easting, northing);
-//                sendCoordinateToServer(coordinate.toStringXY(3), null);
-                
-                // TODO: remove focus
-                // -> Tried a lot but failed. Ask the authors.
-                
-                
-                
-                resultPanel.style.visibility = "visible";
-            }
-        });
+//                // TODO: remove focus
+//                // -> Tried a lot but failed. Ask the authors.
+//                
+//                
+//                
+//                resultPanel.style.visibility = "visible";
+//            }
+//        });
 	
         HTMLElement suggestBoxDiv = div().id("suggestBoxDiv").add(suggestBox).element();
         body().add(div().id("searchPanel").add(div().id("suggestBoxDiv").add(suggestBox)));
