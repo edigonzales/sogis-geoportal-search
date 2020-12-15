@@ -259,6 +259,12 @@ public class AppEntryPoint implements EntryPoint {
             suggestionsMenu.close();
         });
         
+        
+        // gb: Grundstück
+        // öreb: öreb kataster link
+        // öreb pdf: direkt link auf pdf
+        // adr: adresssuche
+        // karte: kartensuche (link auf Web GIS).
 
 
 
