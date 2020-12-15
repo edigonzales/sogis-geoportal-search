@@ -1,4 +1,4 @@
-package ch.so.agi.geoportal.search;
+package ch.so.agi.search;
 
 import java.io.IOException;
 import java.util.Date;

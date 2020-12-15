@@ -1,4 +1,4 @@
-package ch.so.agi.geoportal.search.client;
+package ch.so.agi.search.client;
 
 import java.io.Serializable;
 

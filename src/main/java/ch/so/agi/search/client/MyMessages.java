@@ -1,4 +1,4 @@
-package ch.so.agi.geoportal.search.client;
+package ch.so.agi.search.client;
 
 import com.google.gwt.i18n.client.Messages;
 

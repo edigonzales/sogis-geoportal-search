@@ -1,4 +1,4 @@
-package ch.so.agi.geoportal.search;
+package ch.so.agi.search;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import ch.so.agi.geoportal.search.server.SettingsServiceImpl;
+import ch.so.agi.search.server.SettingsServiceImpl;
 
 @ServletComponentScan
 @SpringBootApplication

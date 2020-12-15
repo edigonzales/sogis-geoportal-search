@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ch.so.agi.geoportal.search</groupId>
-  <artifactId>geoportal-search</artifactId>
+  <groupId>ch.so.agi.search</groupId>
+  <artifactId>geosuche</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>geoportal-search</name>
-  <description>sogis geportal search</description>
+  <name>geosuche</name>
+  <description>sogis geosuche</description>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.1.4.RELEASE</version>
+    <version>2.3.7.RELEASE</version>
     <relativePath/>
     <!-- lookup parent from repository -->
   </parent>
@@ -18,7 +18,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
-    <gwtVersion>2.8.2</gwtVersion>
+    <gwtVersion>2.9.0</gwtVersion>
     <serverPort>8080</serverPort>
   </properties>
   
@@ -172,7 +172,7 @@
           </execution>
         </executions>
         <configuration>
-          <moduleName>ch.so.agi.geoportal.search.module1</moduleName>
+          <moduleName>ch.so.agi.search.module1</moduleName>
           <failOnError>true</failOnError>
           <launcherDir>${project.build.directory}/classes/public</launcherDir>
           <webappDirectory>${project.build.directory}/classes/public</webappDirectory>
@@ -196,11 +196,11 @@
 		                    <argument>build</argument>
 		                    <argument>.</argument>
 		                    <argument>-t</argument>
-		                    <argument>sogis/geoportal-search:1.0.${env.TRAVIS_BUILD_NUMBER}</argument>                    
+		                    <argument>sogis/geosuche:1.0.${env.TRAVIS_BUILD_NUMBER}</argument>                    
 		                    <argument>-t</argument>
-		                    <argument>sogis/geoportal-search:latest</argument>                    
+		                    <argument>sogis/geosuche:latest</argument>                    
 		                    <argument>--build-arg</argument>
-		                    <argument>JAR_FILE=target/geoportal-search-${project.version}.jar</argument>
+		                    <argument>JAR_FILE=target/geosuche-${project.version}.jar</argument>
 		                </arguments>
 		            </configuration>
 		        </execution>

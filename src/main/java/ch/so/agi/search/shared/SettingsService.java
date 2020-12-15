@@ -1,4 +1,4 @@
-package ch.so.agi.geoportal.search.shared;
+package ch.so.agi.search.shared;
 
 import java.io.IOException;
 

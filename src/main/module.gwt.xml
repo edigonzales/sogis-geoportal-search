@@ -19,6 +19,6 @@
      
     <source path="client" />
     <source path="shared" />
-    <entry-point class='ch.so.agi.geoportal.search.client.AppEntryPoint' />
+    <entry-point class='ch.so.agi.search.client.AppEntryPoint' />
  
 </module>

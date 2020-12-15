@@ -1,4 +1,4 @@
-package ch.so.agi.geoportal.search.server;
+package ch.so.agi.search.server;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,8 +11,8 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import ch.so.agi.geoportal.search.shared.SettingsResponse;
-import ch.so.agi.geoportal.search.shared.SettingsService;
+import ch.so.agi.search.shared.SettingsResponse;
+import ch.so.agi.search.shared.SettingsService;
 
 public class SettingsServiceImpl extends RemoteServiceServlet implements SettingsService {
 

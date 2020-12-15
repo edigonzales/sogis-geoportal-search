@@ -1,4 +1,4 @@
-package ch.so.agi.geoportal.search;
+package ch.so.agi.search;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

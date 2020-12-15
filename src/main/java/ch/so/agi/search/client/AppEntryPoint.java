@@ -1,4 +1,4 @@
-package ch.so.agi.geoportal.search.client;
+package ch.so.agi.search.client;
 
 import static elemental2.dom.DomGlobal.console;
 import static org.jboss.elemento.Elements.*;
@@ -15,6 +15,7 @@ import org.dominokit.domino.ui.forms.SuggestBox;
 import org.dominokit.domino.ui.forms.SuggestItem;
 import org.dominokit.domino.ui.forms.SuggestBox.DropDownPositionDown;
 import org.dominokit.domino.ui.forms.SuggestBoxStore.SuggestionsHandler;
+import org.dominokit.domino.ui.icons.Icon;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.ColorScheme;
@@ -68,9 +69,9 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import ch.qos.logback.classic.Logger;
-import ch.so.agi.geoportal.search.shared.SettingsResponse;
-import ch.so.agi.geoportal.search.shared.SettingsService;
-import ch.so.agi.geoportal.search.shared.SettingsServiceAsync;
+import ch.so.agi.search.shared.SettingsResponse;
+import ch.so.agi.search.shared.SettingsService;
+import ch.so.agi.search.shared.SettingsServiceAsync;
 //import elemental2.core.Global;
 //import elemental2.core.JsArray;
 //import elemental2.dom.DomGlobal;
@@ -114,6 +115,7 @@ public class AppEntryPoint implements EntryPoint {
     private NumberFormat fmtPercent = NumberFormat.getFormat("#0.0");
     
     SuggestBox suggestBox;
+    DropDownMenu suggestionsMenu;
     HTMLDivElement resultPanel;
 
     public void onModuleLoad() {
@@ -133,7 +135,7 @@ public class AppEntryPoint implements EntryPoint {
 
     @SuppressWarnings("unchecked")
     private void init() { 
-        Theme theme = new Theme(ColorScheme.BLUE);
+        Theme theme = new Theme(ColorScheme.RED);
         theme.apply();
 
         SuggestBoxStore dynamicStore = new SuggestBoxStore() {
@@ -206,94 +208,59 @@ public class AppEntryPoint implements EntryPoint {
                 SuggestItem<SearchResult> suggestItem = SuggestItem.create(searchResult, searchResult.getDisplay());
                 handler.accept(suggestItem);
                 console.log(suggestBox.getInputElement().element().innerHTML);
-            }
-
-            public SuggestBoxStore<String> setMissingValueProvider(MissingSuggestProvider<String> missingValueProvider) {
-                this.missingValueProvider = missingValueProvider;
-                return this;
-            }
-
-            public SuggestBoxStore<String> setMissingEntryProvider(MissingEntryProvider<String> missingEntryProvider) {
-                this.missingEntryProvider = missingEntryProvider;
-                return this;
-            }
-            
-//            class Foo implements SuggestBoxStore.MissingEntryProvider<String> {
-//                @Override
-//                public Optional<SuggestItem<String>> getMessingSuggestion(String inputValue) {
-//                    if (inputValue.isEmpty()) {
-//                        return Optional.empty();
-//                    }
-//                    return Optional.of(SuggestItem.create(inputValue));               
-//                }       
-//            }
-//            
-//            class Bar implements SuggestBoxStore.MissingSuggestProvider<String> {
-//                @Override
-//                public Optional<SuggestItem<String>> getMessingSuggestion(String missingValue) {
-//                        if (missingValue.isEmpty()) {
-//                            return Optional.empty();
-//                        }
-//                        return Optional.of(SuggestItem.create(missingValue));                
-//                        
-//                }
-//            } 
-            
+            }            
         };
         
         
         suggestBox = SuggestBox.create("Suche: Orte, Karten, Daten, ...", dynamicStore);
-        suggestBox.setIcon(Icons.ALL.search());
+
+        Icon searchIcon = Icons.ALL.search();
+        searchIcon.addClickListener(new EventListener() {
+            @Override
+            public void handleEvent(Event evt) {
+                suggestionsMenu.close();
+                suggestBox.unfocus(); 
+                evt.stopPropagation();
+
+                console.log("makeitso");
+            }
+        });
+        searchIcon.element().style.cursor = "pointer";
+        suggestBox.addLeftAddOn(searchIcon);
+        
+        Icon resetIcon = Icons.ALL.close();
+        resetIcon.addClickListener(new EventListener() {
+            @Override
+            public void handleEvent(Event evt) {
+                HTMLInputElement el =(HTMLInputElement) suggestBox.getInputElement().element();
+                el.value = "";
+                suggestBox.focus();                
+            }
+        });
+        resetIcon.element().style.cursor = "pointer";
+        suggestBox.addRightAddOn(resetIcon);
+        
         suggestBox.setAutoSelect(false);
+        suggestBox.setFocusColor(Color.RED);
         suggestBox.getInputElement().setAttribute("autocomplete", "off");
-        suggestBox.getInputElement().setAttribute("spellcheck", "false");
-        DropDownMenu suggestionsMenu = suggestBox.getSuggestionsMenu();
+        suggestBox.getInputElement().setAttribute("spellcheck", "false");        
+        suggestBox.focus();                
+        suggestionsMenu = suggestBox.getSuggestionsMenu();
         suggestionsMenu.setPosition(new DropDownPositionDown());
+
+        HTMLInputElement suggestBoxElement =(HTMLInputElement) suggestBox.getInputElement().element();
+        suggestBoxElement.addEventListener("keydown", evt -> {
+            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
+            String key = keyboardEvent.key.toLowerCase();
+            
+            console.log("suggestionsMenu: " + key);
+            
+            evt.stopPropagation();
+            suggestionsMenu.close();
+        });
         
 
-        
-//        suggestionsMenu.addEventListener("keydown", evt -> {
-//            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-//            String key = keyboardEvent.key.toLowerCase();
-//            console.log("suggestionsMenu" + key);
-//        });
 
-        // Funktioniert nicht wenn Suggestionspanel offen ist.
-//        suggestBox.addEventListener("keydown", evt -> {
-//
-//            KeyboardEvent keyboardEvent = Js.uncheckedCast(evt);
-//            String key = keyboardEvent.key.toLowerCase();
-//            console.log(key);
-//            
-//            suggestionsMenu.blur();
-//            suggestBox.focus();
-//            
-//            if (key.equalsIgnoreCase("enter")) {
-//                console.log("fubar");
-//                suggestionsMenu.close();
-//            }
-//            
-//        });
-        
-        
-//        suggestBox.setOnEnterAction(new DelayedAction() {
-//            @Override
-//            public void doAction() {
-//                console.log("enter pressed.");
-//                suggestionsMenu.close();
-//            }
-//        });
-//        
-//        suggestBox.removeEventListener("enter", new EventListener() {
-//
-//            @Override
-//            public void handleEvent(Event evt) {
-//                // TODO Auto-generated method stub
-//                
-//            }
-//            
-//        });
-        
 
         suggestBox.addSelectionHandler(new SelectionHandler() {
             @Override
@@ -304,14 +271,7 @@ public class AppEntryPoint implements EntryPoint {
             }
         });
         
-//        suggestBox.addChangeHandler(new ChangeHandler() {
-//            @Override
-//            public void onValueChanged(Object value) {
-//                HTMLInputElement el =(HTMLInputElement) suggestBox.getInputElement().element();
-//                suggestBox.getSuggestionsMenu().close();
-//                console.log("onValueChanged: " + el.value);
-//            }
-//        });
+
         
 
         
@@ -381,160 +341,7 @@ public class AppEntryPoint implements EntryPoint {
         
         body().add(resultPanel);
 
-        
-        
-        
-        
-//        TabsPanel tabsPanel = TabsPanel.create();
 
-        
-//        FlowPanel searchBoxContainer = new FlowPanel();
-//        searchBoxContainer.setStyleName("searchBoxContainer");
-//
-//        HorizontalPanel searchPanel = new HorizontalPanel();
-//        searchPanel.setStyleName("searchPanel");
-//        searchPanel.setSpacing(5);
-//
-//        MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();  
-//        oracle.add("Cat");
-//        oracle.add("Dog");
-//        oracle.add("Horse");
-//        oracle.add("Canary");
-//        
-//        SuggestBox suggestBox = new SuggestBox(oracle, new TextBox(), new CustomSuggestionDisplay());
-//        suggestBox.setWidth("100%");
-//        suggestBox.setAutoSelectEnabled(false);
-//        
-//        suggestBox.addValueChangeHandler(h -> {
-//            GWT.log("addValueChangeHandler: " + h.getValue()); 
-//        });
-//        
-//        suggestBox.addSelectionHandler(h -> {
-//            GWT.log("addSelectionHandler: " + h.getSelectedItem().getReplacementString()); 
-//            
-//            searchPanel.setStyleName("resultSearchPanel");
-//            //RootPanel.get().getElement().getStyle().setProperty("backgroundColor", "white");
-//            //searchBoxContainer.getElement().getStyle().setProperty("backgroundColor", "#fafafa");
-//            //searchBoxContainer.getElement().getStyle().setProperty("borderBottom", "1px solid #D9D9D9");
-//
-////            tabsPanel.addStyleName("gwt-TabPanel-Result");
-//            //tabsPanel.style().setMarginLeft("0px", true);
-//            //tabsPanel.style().setPaddingLeft("100px", true);
-//            //tabsPanel.style().setPaddingRight("100px", true);
-////            tabsPanel.style().setMarginRight("auto", true);
-//            //tabsPanel.style().setWidth("100%", true);
-//            //tabsPanel.style().setMaxWidth("100%", true);
-//            
-//        });
-//        
-//        suggestBox.addKeyDownHandler(h -> {
-//           //GWT.log(((SuggestBox) h.getSource()).getValue()); 
-//            if (h.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-//                GWT.log("ENTER");
-//                
-//                
-//                GWT.log(suggestBox.getText());
-//                
-//                
-//            }
-//        });
-//        searchPanel.add(suggestBox);
-//        searchBoxContainer.add(searchPanel);
-//        
-//        Button searchButton = new Button("Suche", new ClickHandler() {
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				GWT.log("Button clicked.");
-//			}
-//        });
-//        searchPanel.add(searchButton);
-//        
-//        
-//        RootPanel.get().add(searchBoxContainer);
-
-        
-        // Domino UI
-//        tabsPanel.setBackgroundColor(Color.GREY_LIGHTEN_5);
-//        tabsPanel.style().setMarginLeft("auto", true);
-//        tabsPanel.style().setMarginRight("auto", true);
-//        tabsPanel.style().setWidth("500px", true);
-//        tabsPanel.style().setMaxWidth("100%", true);
-
-//        Tab tabAll = Tab.create("Alles");
-//        tabAll.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-//        Tab tabPlaces = Tab.create("Orte");
-//        tabPlaces.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-//        Tab tabMaps = Tab.create("Karten");
-//        tabMaps.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-//        Tab tabServices = Tab.create("Dienste");
-//        tabServices.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-//        Tab tabData = Tab.create("Daten");
-//        tabData.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-//        Tab tabPlr = Tab.create("ÖREB");
-//        tabPlr.appendChild(b().textContent("Home Content")).appendChild(Paragraph.create("Fubar"));
-//        
-//        tabsPanel.appendChild(tabAll);
-//        tabsPanel.appendChild(tabPlaces);
-//        tabsPanel.appendChild(tabMaps);
-//        tabsPanel.appendChild(tabServices);
-//        tabsPanel.appendChild(tabData);
-//        tabsPanel.appendChild(tabPlr);
-//        
-        //HTMLDivElement tabsPanelContainer = div().asElement();
-        //tabsPanelContainer.setAttribute("id", "tabsPanelContainer");
-        //tabsPanelContainer.appendChild(tabsPanel.asElement());
-        
-//        Elements.body().add(tabsPanelContainer);
-       
-
-        /*
-        // GWT pure
-        FlowPanel tabContainer = new FlowPanel();
-        tabContainer.setStyleName("tabContainer");
-        
-        // searchContext
-
-        //create contents for tabs of tabpanel
-        Label label0 = new Label("    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-        label0.setHeight("200");
-        Label label1 = new Label("This is contents of TAB 1");
-        label1.setHeight("200");
-        Label label2 = new Label("This is contents of TAB 2");
-        label2.setHeight("200");
-        Label label3 = new Label("This is contents of TAB 3");
-        label3.setHeight("200");
-        Label label4 = new Label("This is contents of TAB 4");
-        label3.setHeight("200");
-        Label label5 = new Label("This is contents of TAB 5");
-        label3.setHeight("200");
-
-        //create titles for tabs
-        String tabAllTitle = "Alles";
-        String tabPlacesTitle = "Orte";
-        String tabMapsTitle = "Karten";
-        String tabServicesTitle = "Dienste";
-        String tabDataTitle = "Daten";
-        String tabPlrTitle = "ÖREB";
-
-        //create tabs 
-        tabPanel.add(label0, tabAllTitle);
-        tabPanel.add(label1, tabPlacesTitle);
-        tabPanel.add(label2, tabMapsTitle);
-        tabPanel.add(label3, tabServicesTitle);
-        tabPanel.add(label4, tabDataTitle);
-        tabPanel.add(label5, tabPlrTitle);
-
-        //select first tab
-        tabPanel.selectTab(0);
-
-        //set width if tabpanel
-        //tabPanel.setWidth("400");
-
-        // Add the widgets to the root panel.
-        tabContainer.add(tabPanel);
-//        RootPanel.get().add(tabContainer);
-        */
-        
     }
 
    private static native void updateURLWithoutReloading(String newUrl) /*-{
